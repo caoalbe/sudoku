@@ -22,21 +22,26 @@ class Sudoku_Board:
         for row in range(len(self._board)):
 
             # Add Horizontal Bar
-            if row == 3 or row == 6:
-                for dummy in range(17):
+            if row == 0 or row == 3 or row == 6:
+                for dummy in range(19):
                     output += "-"
                 output += "\n"
 
             for col in range(len(self._board[row])):
+                # Add Vertical Bar
+                if col == 0 or col == 3 or col == 6:
+                    output += "|"
+
                 # Add Value
                 output += str(self._board[row][col])
                 if ((col + 1) % 3):
                     output += " "
-                # Add Vertical Bar
-                if col == 2 or col == 5:
-                    output += "|"
-            # Add New Line at end of Row
-            output += "\n"
+            # Add New Line and Vertical Bar at end of Row
+            output += "|\n"
+
+        # Add Horizontal Bar at Bottom of Board
+        for dummy in range(19):
+            output += "-"
         return output
 
     def set_board(self, row: int, col: int, value: int) -> None:
@@ -67,14 +72,7 @@ class Sudoku_Board:
 def main():
     game = Sudoku_Board()
     game.set_board(4, 4, 8)
-    print(game._check_valid(4,4))  # True
-    game.set_board(5, 5, 8)
-    print(game._check_valid(4, 4))  # True
-    print(game._check_valid(5, 5))  # True
-    game.set_board(4,5,8)
-    print(game._check_valid(4, 4))  # False
-    print(game._check_valid(5, 5))  # False
-    print(game._check_valid(4, 5))  # False
+    print(str(game))
 
 
 
