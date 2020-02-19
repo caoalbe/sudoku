@@ -1,6 +1,5 @@
 
 class Sudoku_Board:
-
     """
     A Sudoku Board
 
@@ -8,7 +7,7 @@ class Sudoku_Board:
     board: the 9x9 board with values
     """
     # Attribute Types
-    _board: [[str]] # [row][column]
+    _board: [[str]]  # [row][column]
 
     def __init__(self) -> None:
         # Initialize all blank spaces to "_"
@@ -44,6 +43,11 @@ class Sudoku_Board:
             output += "-"
         return output
 
+    def get_board(self, row: int, col: int) -> int:
+        # Returns the value for the board
+        # Use this function to get around indexing at 0
+        return self._board[row - 1][col - 1]
+
     def set_board(self, row: int, col: int, value: int) -> None:
         # Set's a value for the board
         self._board[row - 1][col - 1] = value # Care for indexing at 0
@@ -51,30 +55,43 @@ class Sudoku_Board:
     def _check_valid(self, row: int, col: int) -> bool:
         # Returns true if a value on <row>, <col> does not violate the rules of Sudoku (row, col, squares)
 
-        target = self._board[row - 1][col - 1]
+        target = self.get_board(row, col)
 
         # Check Rows and Columns
         for i in range(9):
             # Iterate through a row, but skip the target square
-            if (i != col-1) and (target == self._board[row-1][i]):
+            if (i != col-1) and (target == self.get_board(row, i + 1)):
                 return False
 
             # Iterate through a column, but skip the target square
-            if (i != row-1) and (target == self._board[i][col-1]):
+            if (i != row-1) and (target == self.get_board(i + 1, col)):
                 return False
 
         # Check Squares-Sectors
-
+        sector = _get_sector(row, col)
+        # Iterate through rows of sector
+        for r in range(3):
+            # Iterate through col of sector
+            for c in range(3):
+                if self.get_board(3 * sector[0] + r + 1, 3 * sector[1] + c + 1) == target and \
+                        (row != 3 * sector[0] + r + 1) and (col != 3 * sector[1] + c + 1):
+                    # Iterate through a box, but skip target square
+                    return False
 
         return True
 
 
-def main():
-    game = Sudoku_Board()
-    game.set_board(4, 4, 8)
-    print(str(game))
+# Static Methods
+def _get_sector(row: int, col: int) -> [[int], [int]]:
+    # Returns which sector a value is in
+    # First index is row, second index is col (0-2)
 
+    output = list()
 
+    output.append((row - 1) // 3)
+    output.append((col - 1) // 3)
+
+    return output
 
 
 if __name__ == "__main__":
