@@ -47,6 +47,15 @@ class TestSudokuBoard(unittest.TestCase):
         game.set_board(4, 6, 8)
         assert game._board[4 - 1][6 - 1] == 8
 
+    def test_clear_board(self) -> None:
+        # Test for <clear_board>
+        game = SudokuGame.Sudoku_Board()
+        state1 = str(game)
+        game.set_board(4, 4, 5)
+        game.clear_slot(4, 4)
+        state2 = str(game)
+        assert state1 == state2
+
     def test_check_valid(self) -> None:
         # Test for <_check_valid>
         game = SudokuGame.Sudoku_Board()
