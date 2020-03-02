@@ -45,12 +45,17 @@ class Sudoku_Board:
 
     def get_board(self, row: int, col: int) -> int:
         # Returns the value for the board
+        # Returns "_" for empty tiles
         # Use this function to get around indexing at 0
         return self._board[row - 1][col - 1]
 
     def set_board(self, row: int, col: int, value: int) -> None:
         # Set's a value for the board
         self._board[row - 1][col - 1] = value # Care for indexing at 0
+
+    def clear_slot(self, row: int, col: int) -> None:
+        # Deletes a value for the board
+        self._board[row - 1][col - 1] = "_"
 
     def _check_valid(self, row: int, col: int) -> bool:
         # Returns true if a value on <row>, <col> does not violate the rules of Sudoku (row, col, squares)
