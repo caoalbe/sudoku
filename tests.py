@@ -47,8 +47,8 @@ class TestSudokuBoard(unittest.TestCase):
         game.set_board(4, 6, 8)
         assert game._board[4 - 1][6 - 1] == 8
 
-    def test_clear_board(self) -> None:
-        # Test for <clear_board>
+    def test_clear_slot(self) -> None:
+        # Test for <clear_slot>
         game = SudokuGame.Sudoku_Board()
         state1 = str(game)
         game.set_board(4, 4, 5)
