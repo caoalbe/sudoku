@@ -7,13 +7,14 @@ class Sudoku_Board:
     board: the 9x9 board with values
     """
     # Attribute Types
-    _board: [[str]]  # [row][column]
+    _board: [[int]]  # [row][column]
 
     def __init__(self) -> None:
         # Initialize all blank spaces to "_"
         self._board = [[], [], [], [], [], [], [], [], []]
         for row in range(len(self._board)):
-            self._board[row] = ["_", "_", "_", "_", "_", "_", "_", "_", "_"]
+            for col in range(9):
+                self._board[row].append(0)
 
     def __str__(self) -> str:
         # Print the Board
@@ -32,8 +33,13 @@ class Sudoku_Board:
                     output += "|"
 
                 # Add Value
+                value = self._board[row][col]
+                if value == 0:
+                    output += "_"
+                else:
+                    output += str(value)
                 output += str(self._board[row][col])
-                if ((col + 1) % 3):
+                if (col + 1) % 3:
                     output += " "
             # Add New Line and Vertical Bar at end of Row
             output += "|\n"
@@ -51,11 +57,11 @@ class Sudoku_Board:
 
     def set_board(self, row: int, col: int, value: int) -> None:
         # Set's a value for the board
-        self._board[row - 1][col - 1] = value # Care for indexing at 0
+        self._board[row - 1][col - 1] = value  # Care for indexing at 0
 
     def clear_slot(self, row: int, col: int) -> None:
         # Deletes a value for the board
-        self._board[row - 1][col - 1] = "_"
+        self._board[row - 1][col - 1] = 0
 
     def _check_valid(self, row: int, col: int) -> bool:
         # Returns true if a value on <row>, <col> does not violate the rules of Sudoku (row, col, squares)
@@ -84,6 +90,34 @@ class Sudoku_Board:
                     return False
 
         return True
+
+    def player_move(self, row: int, col: int, value: int) -> bool:
+        # Returns true if a player move is immediately valid
+        # Mutates board if it is valid, otherwise stays the same
+
+        if not self.get_board(row, col) == 0:
+            # Place already has a value
+            return False
+
+        self.set_board(row, col, value)
+        if not self._check_valid(row, col):
+            # This move breaks a rule of sudoku
+            self.clear_slot(row, col)
+            return False
+
+        return True
+
+    #def copy(self) -> Sudoku_Board():
+        # Create and return a deep copy of our board
+    #    output = Sudoku_Board()
+
+    #    for r in range(9):
+    #        for c in range(9):
+    #            output.set_board(r, c, self.get_board(r, c))
+
+    #    return output
+
+
 
 
 # Static Methods

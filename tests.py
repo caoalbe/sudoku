@@ -3,8 +3,7 @@
 import unittest
 import SudokuGame
 
-if __name__ == '__main__':
-    unittest
+
 
 
 # ==================================================== Sudoku_Board ====================================================
@@ -14,10 +13,10 @@ class TestSudokuBoard(unittest.TestCase):
     def test_init(self) -> None:
         # Test for <__init__>
         game = SudokuGame.Sudoku_Board()
-        assert game._board[0][0] == "_"  # e1
-        assert game._board[8][8] == "_"  # e2
-        assert game._board[2][2] == "_"  # e3
-        assert game._board[3][3] == "_"  # e4
+        assert game._board[0][0] == 0  # e1
+        assert game._board[8][2] == 0  # e2
+        assert game._board[2][2] == 0  # e3
+        assert game._board[3][5] == 0  # e4
 
     def test_string(self) -> None:
         # Test for <__str__>
@@ -27,13 +26,13 @@ class TestSudokuBoard(unittest.TestCase):
         game2._board[1][1] = 3
         assert str(game1) != str(game2)
 
-        game2._board[1][1] = "_"
+        game2._board[1][1] = 0
         assert str(game1) == str(game2)
 
     def test_get_board(self) -> None:
         # Test for <get_board>
         game = SudokuGame.Sudoku_Board()
-        assert game.get_board(3, 3) == "_"
+        assert game.get_board(3, 3) == 0
 
         game._board[2][2] = 7
         assert game.get_board(3, 3) == 7
@@ -90,3 +89,6 @@ class TestHelperFunctions(unittest.TestCase):
         assert SudokuGame._get_sector(4, 4) == [1, 1]
         assert SudokuGame._get_sector(2, 5) == [0, 1]
         assert SudokuGame._get_sector(9, 9) == [2, 2]
+
+if __name__ == '__main__':
+    unittest.main()

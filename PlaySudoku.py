@@ -59,12 +59,4 @@ if __name__ == '__main__':
         col = int(input("Column: "))
         val = int(input("Value: "))
 
-        # Checks Valid
-        if not game.get_board(row, col) == "_":
-            # Not a vacant space
-            print("Not a Vacant Space")
-        game.set_board(row, col, val)
-        if not game._check_valid(row, col):
-            # Not an immediately valid move
-            print("Invalid Move")
-            game.clear_slot(row, col)
+        game.player_move(row, col, value)
