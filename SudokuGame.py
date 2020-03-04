@@ -12,7 +12,7 @@ class Sudoku_Board:
     def __init__(self) -> None:
         # Initialize all blank spaces to "_"
         self._board = [[], [], [], [], [], [], [], [], []]
-        for row in range(len(self._board)):
+        for row in range(9):
             for col in range(9):
                 self._board[row].append(0)
 
@@ -38,7 +38,6 @@ class Sudoku_Board:
                     output += "_"
                 else:
                     output += str(value)
-                output += str(self._board[row][col])
                 if (col + 1) % 3:
                     output += " "
             # Add New Line and Vertical Bar at end of Row
@@ -63,7 +62,7 @@ class Sudoku_Board:
         # Deletes a value for the board
         self._board[row - 1][col - 1] = 0
 
-    def _check_valid(self, row: int, col: int) -> bool:
+    def check_valid(self, row: int, col: int) -> bool:
         # Returns true if a value on <row>, <col> does not violate the rules of Sudoku (row, col, squares)
 
         target = self.get_board(row, col)
@@ -100,24 +99,27 @@ class Sudoku_Board:
             return False
 
         self.set_board(row, col, value)
-        if not self._check_valid(row, col):
+        if not self.check_valid(row, col):
             # This move breaks a rule of sudoku
             self.clear_slot(row, col)
             return False
 
         return True
 
-    #def copy(self) -> Sudoku_Board():
-        # Create and return a deep copy of our board
-    #    output = Sudoku_Board()
+    def check_game(self) -> bool:
+        # Checks if a game has been solved
 
-    #    for r in range(9):
-    #        for c in range(9):
-    #            output.set_board(r, c, self.get_board(r, c))
+        # Iterate through every tile and checks if any violate sudoku rules
+        for r in range(9):
+            for c in range(9):
+                if not self._board == 0 and not self.check_valid(r, c):
+                    return False
+        return True
 
-    #    return output
+    def solve_game(self) -> None:
+        # Returns a solved version of the board
 
-
+        pass
 
 
 # Static Methods

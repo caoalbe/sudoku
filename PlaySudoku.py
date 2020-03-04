@@ -1,62 +1,40 @@
 
-import SudokuGame
+import examples
+from tkinter import *
 
 if __name__ == '__main__':
-    game = SudokuGame.Sudoku_Board()
+    game = examples.create_example1()
 
-    game.set_board(1, 2, 8)
-    game.set_board(1, 5, 7)
-    game.set_board(1, 7, 3)
-    game.set_board(1, 9, 5)
+    root = Tk()
 
-    game.set_board(2, 1, 2)
-    game.set_board(2, 2, 5)
-    game.set_board(2, 3, 7)
-    game.set_board(2, 6, 8)
-    game.set_board(2, 8, 9)
-    game.set_board(2, 9, 6)
+    # label_1 = Label(root, text="TOP TEXT")
+    # label_2 = Label(root, text="BOTTOM TEXT")
 
-    game.set_board(3, 6, 5)
-    game.set_board(3, 8, 7)
+    # entry_1 = Entry(root)
+    # entry_2 = Entry(root)
 
-    game.set_board(4, 1, 4)
-    game.set_board(4, 3, 9)
-    game.set_board(4, 4, 3)
-    game.set_board(4, 5, 6)
+    # label_1.grid(row=0, sticky=E)
+    # label_2.grid(row=1, sticky=E)
 
-    game.set_board(5, 2, 6)
-    game.set_board(5, 3, 1)
-    game.set_board(5, 8, 4)
+    # entry_1.grid(row=0, column=1)
+    # entry_2.grid(row=1, column=1)
 
-    game.set_board(6, 1, 3)
-    game.set_board(6, 2, 7)
-    game.set_board(6, 3, 8)
-    game.set_board(6, 5, 1)
-    game.set_board(6, 8, 2)
+    # Create all Labels and Entries
+    for r in range(9):
+        for c in range(9):
+            target = game.get_board(r+1, c+1)
+            if target == 0:
+                # Create an Entry
+                Entry(root, width=3, justify=CENTER).grid(row=r, column=c)
+            else:
+                # Create a Label
+                Label(root, text=target).grid(row=r, column=c)
 
-    game.set_board(7, 2, 3)
-    game.set_board(7, 6, 1)
-    game.set_board(7, 7, 9)
-    game.set_board(7, 9, 4)
+    # Create Check Moves Button
+    def testing():
+        print("nice")
 
-    game.set_board(8, 1, 7)
-    game.set_board(8, 3, 5)
-    game.set_board(8, 7, 1)
-    game.set_board(8, 8, 8)
-    game.set_board(8, 9, 2)
+    check = Button(root, text="Check Answers", command=testing)
+    check.grid(row=9, columnspan=7, sticky=W)
 
-    game.set_board(9, 3, 6)
-    game.set_board(9, 4, 4)
-    game.set_board(9, 5, 8)
-    game.set_board(9, 6, 2)
-    game.set_board(9, 7, 5)
-
-    # Gameplay Loop
-    while True:
-        print(game)
-        print("Your Move:")
-        row = int(input("Row: "))
-        col = int(input("Column: "))
-        val = int(input("Value: "))
-
-        game.player_move(row, col, value)
+    root.mainloop()

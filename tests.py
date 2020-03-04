@@ -56,26 +56,26 @@ class TestSudokuBoard(unittest.TestCase):
         assert state1 == state2
 
     def test_check_valid(self) -> None:
-        # Test for <_check_valid>
+        # Test for <check_valid>
         game = SudokuGame.Sudoku_Board()
         # Should return false since there are multiple empty spaces
-        assert not game._check_valid(3, 3)
+        assert not game.check_valid(3, 3)
 
         game.set_board(3, 3, 8)
         game.set_board(3, 4, 8)
-        assert not game._check_valid(3, 3)
-        assert not game._check_valid(3, 4)
+        assert not game.check_valid(3, 3)
+        assert not game.check_valid(3, 4)
 
         game.set_board(5, 5, 8)
-        assert game._check_valid(5, 5)
+        assert game.check_valid(5, 5)
 
         game.set_board(5, 6, 7)
-        assert game._check_valid(5, 5)
-        assert game._check_valid(5, 6)
+        assert game.check_valid(5, 5)
+        assert game.check_valid(5, 6)
 
         game.set_board(6, 7, 7)
-        assert game._check_valid(5, 6)
-        assert game._check_valid(6, 7)
+        assert game.check_valid(5, 6)
+        assert game.check_valid(6, 7)
 
 
 # ================================================== Helper Functions ==================================================
