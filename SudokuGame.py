@@ -106,7 +106,7 @@ class Sudoku_Board:
 
         return True
 
-    def check_game(self) -> bool:
+    def check_board(self) -> bool:
         # Checks if a game has been solved
 
         # Iterate through every tile and checks if any violate sudoku rules
@@ -117,7 +117,7 @@ class Sudoku_Board:
         return True
 
     def solve_game(self) -> None:
-        # Returns a solved version of the board
+        # Mutates the board a solved state
 
         pass
 

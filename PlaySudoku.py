@@ -31,10 +31,17 @@ if __name__ == '__main__':
                 Label(root, text=target).grid(row=r, column=c)
 
     # Create Check Moves Button
-    def testing():
-        print("nice")
+    def check_board():
+        game.check_board()
 
-    check = Button(root, text="Check Answers", command=testing)
-    check.grid(row=9, columnspan=7, sticky=W)
+    check = Button(root, text="Check Answers", command=check_board)
+    check.grid(row=9, columnspan=6, sticky=W)
+
+    # Create Solve Board Button
+    def solve_game():
+        game.solve_board()
+
+    solve = Button(root, text="Solution", command=solve_game)
+    solve.grid(row=9, column=6, columnspan=3, sticky=E)
 
     root.mainloop()
