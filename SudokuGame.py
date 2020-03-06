@@ -112,14 +112,41 @@ class Sudoku_Board:
         # Iterate through every tile and checks if any violate sudoku rules
         for r in range(9):
             for c in range(9):
-                if not self._board == 0 and not self.check_valid(r, c):
+                if self._board[r][c] == 0 or \
+                        not self.check_valid(r+1, c+1):
+                    # There is an empty-tile, game is not solved
+                    # or
+                    # There is a tile which breaks a sudoku rule
                     return False
         return True
 
-    def solve_game(self) -> None:
-        # Mutates the board a solved state
+    def solve_game(self, display: bool) -> bool:
+        # Mutates the board to a solved state
+        # If <display> is true, show the steps
+        # Otherwise, just show the final state
 
-        pass
+        # Base Case
+        # Game is Complete
+        if self.check_board():
+            return True
+
+        # Recursive Case
+        for r in range(9):
+            for c in range(9):
+                if self._board[r][c] == 0:
+                    # This selection of <r>, <c> is an empty space
+                    for v in range(9):
+                        # Choose
+                        self.set_board(r+1, c+1, v+1)
+                        # Verify
+                        if self.check_valid(r+1, c+1):
+                            # This choice of <v> in <r>, <c> might work
+                            if self.solve_game(display):
+                                return True
+                        # Un-Choose
+                        self.clear_slot(r+1, c+1)
+        # The choice that lead to this branch was bad,
+        return False
 
 
 # Static Methods

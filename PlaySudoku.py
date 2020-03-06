@@ -1,9 +1,9 @@
-
+import SudokuGame
 import examples
 from tkinter import *
 
 if __name__ == '__main__':
-    game = examples.create_example1()
+    game = examples.create_example2()
 
     root = Tk()
 
@@ -18,6 +18,9 @@ if __name__ == '__main__':
 
     # entry_1.grid(row=0, column=1)
     # entry_2.grid(row=1, column=1)
+
+    game.solve_game(True)
+    print(str(game))
 
     # Create all Labels and Entries
     for r in range(9):
