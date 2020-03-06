@@ -1,4 +1,7 @@
+# Albert Cao
+
 from tkinter import *
+
 
 class Sudoku_Board:
     """
@@ -6,9 +9,11 @@ class Sudoku_Board:
 
     ===Attributes===
     board: the 9x9 board with values
+    window: the GUI
     """
     # Attribute Types
     _board: [[int]]  # [row][column]
+    _window: Tk()
 
     def __init__(self) -> None:
         # Initialize all blank spaces to "_"
@@ -57,6 +62,9 @@ class Sudoku_Board:
         root.title("Sudoku")
         root.geometry("300x300")
 
+        self._window = root  # Care this is a bodge;
+        # code should reference <_window> instead of <root>
+
         if not time == 0:
             # 0 time indicates forever
             root.after(time, lambda: root.destroy())
@@ -89,6 +97,31 @@ class Sudoku_Board:
         solve.grid(row=9, column=6, columnspan=3, sticky=E)
 
         root.mainloop()
+
+    def update(self, row: int, col: int) -> None:
+        # This edits an existing window instead
+        # of drawing everything from scratch
+
+        # In particular, it updates a specified space
+
+        # Assuming self._window already has a tk instance
+
+        updated = self.get_board(row, col)
+
+        for widget in self._window.grid_slaves():
+            if int(widget.grid_info()["row"]) + 1 == row \
+                    and int(widget.grid_info()["column"]) + 1 == col:
+                # update <widget>
+                # kill <widget>
+                widget.grid_forget()
+                # draw updated widget in place
+                if updated == 0:
+                    # Empty Space, Create an Entry
+                    Entry(self._window, width=3, justify=CENTER)\
+                        .grid(row=r, column=c)
+                else:
+                    # Create a Label
+                    Label(self._window, text=target).grid(row=r, column=c)
 
     def get_board(self, row: int, col: int) -> int:
         # Returns the value for the board
@@ -192,6 +225,7 @@ class Sudoku_Board:
             # Choose <v>
             self.set_board(r, c, v)
             # self.draw(200)
+            self.update(r, c)
             # Verify
             if self.check_valid(r, c):
                 # This choice of <v> in <r>, <c> might work
@@ -200,7 +234,7 @@ class Sudoku_Board:
             # Un-Choose <v>
             self.clear_slot(r, c)
 
-        # The choice that lead to this branch was bad,
+        # The choice that led to this branch was bad,
         return False
 
 
