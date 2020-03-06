@@ -149,3 +149,8 @@ def create_example2():
     # game.set_board(9, 9, 9)
 
     return game
+
+
+def create_blank():
+    game = SudokuGame.Sudoku_Board()
+    return game

@@ -1,3 +1,4 @@
+from tkinter import *
 
 class Sudoku_Board:
     """
@@ -47,6 +48,47 @@ class Sudoku_Board:
         for dummy in range(19):
             output += "-"
         return output
+
+    def draw(self, time: int) -> None:
+        # <time> refers to how many milliseconds the window persists
+        # 0 time indicates a forever window
+        # Creates a window to view the sudoku board
+        root = Tk()
+        root.title("Sudoku")
+        root.geometry("300x300")
+
+        if not time == 0:
+            # 0 time indicates forever
+            root.after(time, lambda: root.destroy())
+
+        # Create all Labels and Entries
+        for r in range(9):
+            for c in range(9):
+                target = self.get_board(r+1, c+1)
+                if target == 0:
+                    # Create an Entry
+                    Entry(root, width=3, justify=CENTER).grid(row=r, column=c)
+                else:
+                    # Create a Label
+                    Label(root, text=target).grid(row=r, column=c)
+
+        # Create Check Moves Button
+        def check_board():
+            game.check_board()
+
+        check = Button(root, text="Check Answers", command=check_board)
+        check.grid(row=9, columnspan=6, sticky=W)
+
+        # Create Solve Board Button
+        def solution():
+            root.destroy()
+            self.solve_game(False)
+            self.draw(0)
+
+        solve = Button(root, text="Solution", command=solution)
+        solve.grid(row=9, column=6, columnspan=3, sticky=E)
+
+        root.mainloop()
 
     def get_board(self, row: int, col: int) -> int:
         # Returns the value for the board
@@ -149,6 +191,7 @@ class Sudoku_Board:
         for v in range(1, 10):
             # Choose <v>
             self.set_board(r, c, v)
+            # self.draw(200)
             # Verify
             if self.check_valid(r, c):
                 # This choice of <v> in <r>, <c> might work
