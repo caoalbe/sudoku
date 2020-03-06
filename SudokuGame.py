@@ -62,6 +62,17 @@ class Sudoku_Board:
         # Deletes a value for the board
         self._board[row - 1][col - 1] = 0
 
+    def first_empty(self):
+        # Return empty space on the board prioritizing
+        # Higher Row and then a more left Column
+        for r in range(9):
+            for c in range(9):
+                if self._board[r][c] == 0:
+                    # Found Empty Space
+                    return r+1, c+1
+        # No Empty Spaces
+        return None
+
     def check_valid(self, row: int, col: int) -> bool:
         # Returns true if a value on <row>, <col> does not violate the rules of Sudoku (row, col, squares)
 
@@ -131,20 +142,21 @@ class Sudoku_Board:
             return True
 
         # Recursive Case
-        for r in range(9):
-            for c in range(9):
-                if self._board[r][c] == 0:
-                    # This selection of <r>, <c> is an empty space
-                    for v in range(9):
-                        # Choose
-                        self.set_board(r+1, c+1, v+1)
-                        # Verify
-                        if self.check_valid(r+1, c+1):
-                            # This choice of <v> in <r>, <c> might work
-                            if self.solve_game(display):
-                                return True
-                        # Un-Choose
-                        self.clear_slot(r+1, c+1)
+        # Find an Empty Space to Try Solving
+        (r, c) = self.first_empty()
+
+        # Try Every Value 1-9 inclusive
+        for v in range(1, 10):
+            # Choose <v>
+            self.set_board(r, c, v)
+            # Verify
+            if self.check_valid(r, c):
+                # This choice of <v> in <r>, <c> might work
+                if self.solve_game(display):
+                    return True
+            # Un-Choose <v>
+            self.clear_slot(r, c)
+
         # The choice that lead to this branch was bad,
         return False
 

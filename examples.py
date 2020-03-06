@@ -55,6 +55,7 @@ def create_example1():
 
 
 def create_example2():
+    # This is a complete board
     game = SudokuGame.Sudoku_Board()
 
     game.set_board(1, 1, 5)
@@ -127,12 +128,12 @@ def create_example2():
     game.set_board(7, 8, 8)
     game.set_board(7, 9, 4)
 
-    game.set_board(8, 1, 2)
-    game.set_board(8, 2, 8)
-    game.set_board(8, 3, 7)
-    game.set_board(8, 4, 4)
-    game.set_board(8, 5, 1)
-    game.set_board(8, 6, 9)
+    # game.set_board(8, 1, 2)
+    # game.set_board(8, 2, 8)
+    # game.set_board(8, 3, 7)
+    # game.set_board(8, 4, 4)
+    # game.set_board(8, 5, 1)
+    # game.set_board(8, 6, 9)
     # game.set_board(8, 7, 6)
     # game.set_board(8, 8, 3)
     # game.set_board(8, 9, 5)
