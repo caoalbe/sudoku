@@ -77,6 +77,12 @@ class TestSudokuBoard(unittest.TestCase):
         assert game.check_valid(5, 6)
         assert game.check_valid(6, 7)
 
+    def test_draw(self) -> None:
+        # Test for <draw>
+        game = SudokuGame.Sudoku_Board()
+
+        # Should create a sudoku board window with all empty spaces for 5 milliseconds
+        game.draw(5)
 
 # ================================================== Helper Functions ==================================================
 
