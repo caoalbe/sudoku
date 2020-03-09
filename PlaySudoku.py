@@ -2,8 +2,8 @@
 
 from tkinter import *
 import copy
-from Sudoku import Sudoku_Board
-from Sudoku import examples
+from Sudoku_Board import Sudoku_Board
+import examples
 
 typeface = ("Verdana", 16)  # Constant
 
