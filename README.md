@@ -19,4 +19,4 @@ I also wanted to create an executible file to distribute easily.  However I ran 
 my modules that I could not figure out how to fix.
 
 ### What I've learned
-This was a great learning experience trying to grasp new packages tools very quickly.
+This was a great learning experience trying to grasp new packages tools very quickly.  Hopefully future projects go smoother.
